@@ -6,7 +6,7 @@ from transformers import AutoTokenizer
 from logs.logger import log_request
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "phi3"
+MODEL = "devops-assistant"
 
 tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-3-mini-4k-instruct")
 

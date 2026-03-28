@@ -1,3 +1,7 @@
+import transformers.utils as _transformers_utils
+if not hasattr(_transformers_utils, "is_flash_attn_greater_or_equal_2_10"):
+    _transformers_utils.is_flash_attn_greater_or_equal_2_10 = lambda: False
+
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
@@ -10,9 +14,10 @@ def merge_and_save():
     print("Loading base model...")
     base_model = AutoModelForCausalLM.from_pretrained(
         base_model_name,
-        torch_dtype=torch.float16,
-        device_map="auto",
-        trust_remote_code=True
+        dtype=torch.float16,
+        device_map="cpu",
+        trust_remote_code=True,
+        attn_implementation="eager"
     )
     
     tokenizer = AutoTokenizer.from_pretrained(base_model_name)

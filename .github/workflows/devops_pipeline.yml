@@ -69,6 +69,14 @@ jobs:
           path: models/lora_adapter/
           retention-days: 7
 
+      - name: Merge Adapter into Base Model
+        if: steps.check_data.outputs.changed == 'true'
+        run: python3 training/merge_model.py
+
+      - name: Reload Ollama Model
+        if: steps.check_data.outputs.changed == 'true'
+        run: ollama create devops-assistant -f Modelfile
+
   # ─────────────────────────────────────────
   # Stage 3: Model Evaluation (On Mac)
   # ─────────────────────────────────────────
