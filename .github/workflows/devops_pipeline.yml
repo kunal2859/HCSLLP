@@ -127,4 +127,14 @@ jobs:
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
-          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ~/devops-assistant && docker compose pull && docker compose up -d"
+          # Ensure directory exists
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p ~/devops-assistant"
+          # Copy docker-compose
+          scp -i ~/.ssh/deploy_key docker-compose.yml ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:~/devops-assistant/
+          # Deploy
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "
+            echo '${{ secrets.GHCR_TOKEN }}' | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin && \
+            cd ~/devops-assistant && \
+            IMAGE_OWNER=${{ env.IMAGE_OWNER }} REGISTRY=${{ env.REGISTRY }} docker compose pull && \
+            IMAGE_OWNER=${{ env.IMAGE_OWNER }} REGISTRY=${{ env.REGISTRY }} docker compose up -d
+          "
