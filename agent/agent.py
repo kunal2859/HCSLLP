@@ -37,19 +37,21 @@ class ReActAgent:
         plan = []
         q = query.lower()
 
-        if any(w in q for w in ["healthy", "health", "status", "up", "running"]):
+        if any(w in q for w in ["healthy", "health", "status", "up", "running", "uptime"]):
             plan.append({"tool": "system_status", "input": "check"})
 
         devops_keywords = [
             "docker", "kubernetes", "k8s", "ci/cd", "terraform", "ansible", 
             "jenkins", "nodes", "container", "pipeline", "microservice",
-            "cpu", "memory", "limit", "resource", "pod", "deployment", "config"
+            "cpu", "memory", "limit", "resource", "pod", "deployment", "config",
+            "gitops", "git-ops"
         ]
         if any(w in q for w in devops_keywords):
             search_q = re.sub(r"(is the system healthy\?|if so,?|tell me|what is|how many|calculate|5 times|50%|half of)", "", query, flags=re.IGNORECASE).strip()
             search_q = re.sub(r"^[^\w\s]|[^\w\s]$|^\s*(s|find|the)\s+", "", search_q, flags=re.IGNORECASE).strip()
             plan.append({"tool": "devops_search", "input": search_q or query})
         math_patterns = [
+            r"(\d+)\s*([\+\-\*\/])\s*(\d+)",
             r"(\d+)\s*(times|x|\*)\s*(.*)",
             r"multiply\s*(.*)\s*by\s*(\d+)",
             r"calculate\s*(\d+)%\s*of\s*(.*)",
@@ -89,13 +91,16 @@ class ReActAgent:
         obs_text = "\n".join([f"- {o['tool']}: {o['result']}" for o in observations])
         full_context = "\n".join([f"User: {t['user']}\nAssistant: {t['assistant']}" for t in self.memory[-3:]])
 
-        prompt = f"""Context: {obs_text}
-{f"History:{chr(10)}{full_context}" if full_context else ""}
-Question: {query}
-Answer concisely:"""
+        prompt = f"""Context from tools:
+{obs_text}
+
+{f"Previous Conversation:{chr(10)}{full_context}" if full_context else ""}
+
+User Question: {query}
+Answer all parts of the question concisely using the provided context:"""
 
         self.last_input_tokens = len(tokenizer.encode(prompt))
-
+        
         try:
             resp = requests.post(OLLAMA_URL, json={
                 "model": self.model_name,
@@ -104,11 +109,13 @@ Answer concisely:"""
                 "options": {"temperature": 0}
             }, timeout=45)
             answer = resp.json().get("response", "").strip()
+            # Cleanly truncate any hallucinated metadata or EOS tokens
+            answer = answer.split("</s>")[0].split("<|end|>")[0].split("Instruction")[0].strip()
             self.last_output_tokens = len(tokenizer.encode(answer))
             
             return answer
         except Exception as e:
-            return f"Synthesis error: {e}"
+            return f"Error in synthesis: {str(e)}"
 
     def solve(self, query: str) -> str:
         start_time = time.time()
