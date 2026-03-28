@@ -1,5 +1,5 @@
 import time
-import requests
+import requests  # type: ignore
 import json
 
 def benchmark_ollama(model_name):
