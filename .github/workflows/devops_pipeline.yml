@@ -1,0 +1,130 @@
+name: DevOps Unified Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  # ─────────────────────────────────────────
+  # Stage 1: Code Quality (Fast, on Cloud)
+  # ─────────────────────────────────────────
+  code-quality:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install Lint Tools
+        run: pip install ruff mypy
+      - name: Ruff
+        run: ruff check .
+      - name: Mypy
+        run: mypy . --ignore-missing-imports --exclude venv
+
+  # ─────────────────────────────────────────
+  # Stage 2: Model Training (Only on Data Change, on Mac)
+  # ─────────────────────────────────────────
+  train:
+    name: Auto Train (GPU)
+    runs-on: self-hosted
+    needs: code-quality
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      
+      - name: Check for Data Changes
+        id: check_data
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q "data/raw/devops_qa.json"; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Training Deps
+        if: steps.check_data.outputs.changed == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Training (MPS)
+        if: steps.check_data.outputs.changed == 'true'
+        run: |
+          python3 training/preprocess.py
+          python3 training/train.py
+
+      - name: Upload New Adapter
+        if: steps.check_data.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-model
+          path: models/lora_adapter/
+          retention-days: 7
+
+  # ─────────────────────────────────────────
+  # Stage 3: Model Evaluation (On Mac)
+  # ─────────────────────────────────────────
+  evaluation:
+    name: ROUGE Evaluation
+    runs-on: self-hosted
+    needs: train
+    if: always() && (needs.train.result == 'success' || needs.train.result == 'skipped')
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Eval Deps
+        run: |
+          pip install -r requirements.txt
+          pip install rouge-score
+
+      - name: Download New Adapter (if trained)
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-model
+          path: models/lora_adapter/
+        continue-on-error: true
+
+      - name: ROUGE Gate (Assertion)
+        run: python3 evaluation/evaluate.py --ci
+
+  # ─────────────────────────────────────────
+  # Stage 4: Docker & Deploy (On Cloud)
+  # ─────────────────────────────────────────
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: evaluation
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build & Push
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-mcp:latest -f docker/Dockerfile.mcp .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-mcp:latest
+
+      - name: Deploy via SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd ~/devops-assistant && docker compose pull && docker compose up -d"

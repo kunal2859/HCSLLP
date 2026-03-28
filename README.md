@@ -1,6 +1,6 @@
 # DevOps AI Assistant 
 
-[![CI/CD Pipeline](https://github.com/kunalaggarwal/HCSLLP/actions/workflows/ci.yml/badge.svg)](https://github.com/kunalaggarwal/HCSLLP/actions/workflows/ci.yml)
+[![DevOps Pipeline](https://github.com/kunal2859/HCSLLP/actions/workflows/devops_pipeline.yml/badge.svg)](https://github.com/kunal2859/HCSLLP/actions/workflows/devops_pipeline.yml)
 
 A local, agentic AI assistant powered by **Phi-3-mini** and **ChromaDB**, optimized for Apple Silicon (MPS). It uses a ReAct pattern to answer DevOps questions by searching a specialized knowledge base or executing Python code.
 
