@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  tool-server:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile.mcp
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  inference-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.inference
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+    environment:
+      - MODEL_PATH=/app/models/merged_model/phi3-mini-q4_k_m.gguf
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - tool-server
+
+  # Optional: Ollama for local serving if not using Dockerized FastAPI
+  # ollama:
+  #   image: ollama/ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ./models/ollama:/root/.ollama

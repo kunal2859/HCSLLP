@@ -1,0 +1,802 @@
+[
+  {
+    "instruction": "Why use Docker in DevOps?",
+    "input": "",
+    "output": "Docker provides environment consistency, faster deployments, scalability, and reduces dependency-related issues."
+  },
+  {
+    "instruction": "What is EC2?",
+    "input": "",
+    "output": "EC2 provides virtual servers for running applications in the cloud."
+  },
+  {
+    "instruction": "Why monitoring is important?",
+    "input": "",
+    "output": "Monitoring helps detect system issues early and ensures uptime."
+  },
+  {
+    "instruction": "What is Linux?",
+    "input": "",
+    "output": "Linux is an open-source operating system widely used in servers."
+  },
+  {
+    "instruction": "Why monitoring is important?",
+    "input": "",
+    "output": "Monitoring helps detect system issues early and ensures uptime."
+  },
+  {
+    "instruction": "What is Jenkins pipeline?",
+    "input": "",
+    "output": "A Jenkins pipeline defines the steps involved in building, testing, and deploying applications."
+  },
+  {
+    "instruction": "What is blue-green deployment?",
+    "input": "",
+    "output": "Blue-green deployment uses two environments to minimize downtime during releases."
+  },
+  {
+    "instruction": "Explain what is a docker image?",
+    "input": "",
+    "output": "A Docker image is a read-only template containing application code, libraries, and dependencies used to create containers."
+  },
+  {
+    "instruction": "What is scaling?",
+    "input": "",
+    "output": "Scaling adjusts system resources based on workload demand."
+  },
+  {
+    "instruction": "What is Docker?",
+    "input": "",
+    "output": "Docker is a platform that allows developers to package applications and their dependencies into containers, ensuring consistent execution across environments."
+  },
+  {
+    "instruction": "Explain what is idempotency?",
+    "input": "",
+    "output": "Idempotency ensures that repeated execution of tasks produces the same result without unintended changes."
+  },
+  {
+    "instruction": "What is authorization?",
+    "input": "",
+    "output": "Authorization determines access permissions for users."
+  },
+  {
+    "instruction": "What is Git?",
+    "input": "",
+    "output": "Git is a distributed version control system used to track changes in source code."
+  },
+  {
+    "instruction": "What is CI/CD?",
+    "input": "",
+    "output": "CI/CD stands for Continuous Integration and Continuous Deployment. It automates the process of integrating code changes, testing them, and deploying to production, improving speed and reliability."
+  },
+  {
+    "instruction": "What is Jenkins pipeline?",
+    "input": "",
+    "output": "A Jenkins pipeline defines the steps involved in building, testing, and deploying applications."
+  },
+  {
+    "instruction": "Explain what is rebase in git?",
+    "input": "",
+    "output": "Rebase moves or reapplies commits onto another base branch to maintain a linear history."
+  },
+  {
+    "instruction": "Explain what is grafana?",
+    "input": "",
+    "output": "Grafana is a visualization tool used to create dashboards for monitoring data."
+  },
+  {
+    "instruction": "What is alerting?",
+    "input": "",
+    "output": "Alerting sends notifications when predefined conditions or thresholds are breached."
+  },
+  {
+    "instruction": "What is Kubernetes?",
+    "input": "",
+    "output": "Kubernetes is an open-source system used to automate deployment, scaling, and management of containerized applications."
+  },
+  {
+    "instruction": "What is a pipeline?",
+    "input": "",
+    "output": "A pipeline is an automated workflow that builds, tests, and deploys applications."
+  },
+  {
+    "instruction": "What is rebase in Git?",
+    "input": "",
+    "output": "Rebase moves or reapplies commits onto another base branch to maintain a linear history."
+  },
+  {
+    "instruction": "Explain what is a kubernetes cluster?",
+    "input": "",
+    "output": "A cluster is a set of nodes managed by Kubernetes to run containerized workloads efficiently."
+  },
+  {
+    "instruction": "Ansible vs Puppet?",
+    "input": "",
+    "output": "Ansible is agentless and simpler, while Puppet requires agents and has a steeper learning curve."
+  },
+  {
+    "instruction": "What is a Docker container?",
+    "input": "",
+    "output": "A Docker container is a running instance of a Docker image that executes applications in an isolated environment."
+  },
+  {
+    "instruction": "What is Prometheus?",
+    "input": "",
+    "output": "Prometheus is an open-source monitoring tool that collects time-series metrics."
+  },
+  {
+    "instruction": "What is monitoring?",
+    "input": "",
+    "output": "Monitoring involves collecting and analyzing system metrics to ensure performance and availability."
+  },
+  {
+    "instruction": "What is Grafana?",
+    "input": "",
+    "output": "Grafana is a visualization tool used to create dashboards for monitoring data."
+  },
+  {
+    "instruction": "Explain what is reverse proxy?",
+    "input": "",
+    "output": "A reverse proxy forwards client requests to backend servers and manages responses."
+  },
+  {
+    "instruction": "Explain docker vs virtual machines?",
+    "input": "",
+    "output": "Containers share the host OS kernel and are lightweight, whereas virtual machines run full OS instances and consume more resources."
+  },
+  {
+    "instruction": "What is auto scaling?",
+    "input": "",
+    "output": "Auto scaling automatically adjusts resources based on demand metrics."
+  },
+  {
+    "instruction": "What is encryption?",
+    "input": "",
+    "output": "Encryption protects data by converting it into a secure format."
+  },
+  {
+    "instruction": "Explain terraform vs ansible?",
+    "input": "",
+    "output": "Terraform is used for infrastructure provisioning, while Ansible is used for configuration management."
+  },
+  {
+    "instruction": "Explain what is prometheus?",
+    "input": "",
+    "output": "Prometheus is an open-source monitoring tool that collects time-series metrics."
+  },
+  {
+    "instruction": "Why load balancing?",
+    "input": "",
+    "output": "It ensures high availability and prevents server overload."
+  },
+  {
+    "instruction": "Types of load balancing?",
+    "input": "",
+    "output": "Common types include round-robin, least connections, and IP hash."
+  },
+  {
+    "instruction": "Explain what is infrastructure as code?",
+    "input": "",
+    "output": "Infrastructure as Code allows provisioning and managing infrastructure using configuration files instead of manual processes."
+  },
+  {
+    "instruction": "What is VPC?",
+    "input": "",
+    "output": "VPC is a logically isolated network in AWS."
+  },
+  {
+    "instruction": "What is a process?",
+    "input": "",
+    "output": "A process is a running instance of a program."
+  },
+  {
+    "instruction": "What is GitOps?",
+    "input": "",
+    "output": "GitOps is a practice where Git repositories are used as the source of truth for infrastructure and application deployments."
+  },
+  {
+    "instruction": "What is fault tolerance?",
+    "input": "",
+    "output": "Fault tolerance allows systems to continue operating despite failures."
+  },
+  {
+    "instruction": "Explain why load balancing?",
+    "input": "",
+    "output": "It ensures high availability and prevents server overload."
+  },
+  {
+    "instruction": "Explain what is jenkins?",
+    "input": "",
+    "output": "Jenkins is an automation server used to build CI/CD pipelines."
+  },
+  {
+    "instruction": "What is auto scaling?",
+    "input": "",
+    "output": "Auto scaling automatically adjusts resources based on demand metrics."
+  },
+  {
+    "instruction": "Explain Continuous Deployment.",
+    "input": "",
+    "output": "Continuous Deployment automatically releases validated code changes to production without manual intervention, ensuring faster delivery cycles."
+  },
+  {
+    "instruction": "Explain what is gitops?",
+    "input": "",
+    "output": "GitOps is a practice where Git repositories are used as the source of truth for infrastructure and application deployments."
+  },
+  {
+    "instruction": "What is idempotency?",
+    "input": "",
+    "output": "Idempotency ensures that repeated execution of tasks produces the same result without unintended changes."
+  },
+  {
+    "instruction": "What are benefits of CI/CD?",
+    "input": "",
+    "output": "CI/CD improves development speed, reduces manual errors, ensures consistent deployments, and helps catch bugs early in the lifecycle."
+  },
+  {
+    "instruction": "What is scaling?",
+    "input": "",
+    "output": "Scaling adjusts system resources based on workload demand."
+  },
+  {
+    "instruction": "Explain vertical vs horizontal scaling?",
+    "input": "",
+    "output": "Vertical scaling increases resources of a single machine, while horizontal scaling adds more machines."
+  },
+  {
+    "instruction": "Types of load balancing?",
+    "input": "",
+    "output": "Common types include round-robin, least connections, and IP hash."
+  },
+  {
+    "instruction": "What is a shell?",
+    "input": "",
+    "output": "A shell is a command-line interface to interact with the operating system."
+  },
+  {
+    "instruction": "Explain ansible vs puppet?",
+    "input": "",
+    "output": "Ansible is agentless and simpler, while Puppet requires agents and has a steeper learning curve."
+  },
+  {
+    "instruction": "Explain what is monitoring?",
+    "input": "",
+    "output": "Monitoring involves collecting and analyzing system metrics to ensure performance and availability."
+  },
+  {
+    "instruction": "What is canary deployment?",
+    "input": "",
+    "output": "Canary deployment gradually rolls out changes to a small subset of users."
+  },
+  {
+    "instruction": "What is Git?",
+    "input": "",
+    "output": "Git is a distributed version control system used to track changes in source code."
+  },
+  {
+    "instruction": "Vertical vs horizontal scaling?",
+    "input": "",
+    "output": "Vertical scaling increases resources of a single machine, while horizontal scaling adds more machines."
+  },
+  {
+    "instruction": "Why load balancing?",
+    "input": "",
+    "output": "It ensures high availability and prevents server overload."
+  },
+  {
+    "instruction": "What is secrets management?",
+    "input": "",
+    "output": "Secrets management securely stores and manages sensitive data like API keys."
+  },
+  {
+    "instruction": "Explain what is auto scaling?",
+    "input": "",
+    "output": "Auto scaling automatically adjusts resources based on demand metrics."
+  },
+  {
+    "instruction": "What is reverse proxy?",
+    "input": "",
+    "output": "A reverse proxy forwards client requests to backend servers and manages responses."
+  },
+  {
+    "instruction": "Explain Continuous Integration.",
+    "input": "",
+    "output": "Continuous Integration is a practice where developers frequently merge code changes into a shared repository, triggering automated builds and tests to detect issues early."
+  },
+  {
+    "instruction": "Explain what is git?",
+    "input": "",
+    "output": "Git is a distributed version control system used to track changes in source code."
+  },
+  {
+    "instruction": "What is S3?",
+    "input": "",
+    "output": "S3 is an object storage service for storing and retrieving data."
+  },
+  {
+    "instruction": "Docker vs Virtual Machines?",
+    "input": "",
+    "output": "Containers share the host OS kernel and are lightweight, whereas virtual machines run full OS instances and consume more resources."
+  },
+  {
+    "instruction": "Why use Docker in DevOps?",
+    "input": "",
+    "output": "Docker provides environment consistency, faster deployments, scalability, and reduces dependency-related issues."
+  },
+  {
+    "instruction": "What is logging?",
+    "input": "",
+    "output": "Logging is the process of recording application and system events for debugging and analysis."
+  },
+  {
+    "instruction": "What is GitHub?",
+    "input": "",
+    "output": "GitHub is a platform that hosts Git repositories and enables collaboration among developers."
+  },
+  {
+    "instruction": "Why Kubernetes is used?",
+    "input": "",
+    "output": "Kubernetes is used to automate container management, ensure scalability, and maintain high availability."
+  },
+  {
+    "instruction": "What is DNS?",
+    "input": "",
+    "output": "DNS translates domain names into IP addresses."
+  },
+  {
+    "instruction": "What is CI/CD?",
+    "input": "",
+    "output": "CI/CD stands for Continuous Integration and Continuous Deployment. It automates the process of integrating code changes, testing them, and deploying to production, improving speed and reliability."
+  },
+  {
+    "instruction": "Ansible vs Puppet?",
+    "input": "",
+    "output": "Ansible is agentless and simpler, while Puppet requires agents and has a steeper learning curve."
+  },
+  {
+    "instruction": "Explain why kubernetes is used?",
+    "input": "",
+    "output": "Kubernetes is used to automate container management, ensure scalability, and maintain high availability."
+  },
+  {
+    "instruction": "Explain what is ec2?",
+    "input": "",
+    "output": "EC2 provides virtual servers for running applications in the cloud."
+  },
+  {
+    "instruction": "What is cron?",
+    "input": "",
+    "output": "Cron is a scheduler used to automate tasks at specific intervals."
+  },
+  {
+    "instruction": "What is IAM?",
+    "input": "",
+    "output": "IAM manages user access and permissions in AWS."
+  },
+  {
+    "instruction": "What is Prometheus?",
+    "input": "",
+    "output": "Prometheus is an open-source monitoring tool that collects time-series metrics."
+  },
+  {
+    "instruction": "What are benefits of CI/CD?",
+    "input": "",
+    "output": "CI/CD improves development speed, reduces manual errors, ensures consistent deployments, and helps catch bugs early in the lifecycle."
+  },
+  {
+    "instruction": "What is GitHub?",
+    "input": "",
+    "output": "GitHub is a platform that hosts Git repositories and enables collaboration among developers."
+  },
+  {
+    "instruction": "Explain Continuous Deployment.",
+    "input": "",
+    "output": "Continuous Deployment automatically releases validated code changes to production without manual intervention, ensuring faster delivery cycles."
+  },
+  {
+    "instruction": "What is a pod in Kubernetes?",
+    "input": "",
+    "output": "A pod is the smallest deployable unit in Kubernetes that can contain one or more containers sharing network and storage."
+  },
+  {
+    "instruction": "Why centralized logging?",
+    "input": "",
+    "output": "It simplifies log analysis and troubleshooting across distributed systems."
+  },
+  {
+    "instruction": "Explain what are benefits of ci/cd?",
+    "input": "",
+    "output": "CI/CD improves development speed, reduces manual errors, ensures consistent deployments, and helps catch bugs early in the lifecycle."
+  },
+  {
+    "instruction": "What is a playbook in Ansible?",
+    "input": "",
+    "output": "A playbook is a YAML file that defines tasks and automation workflows in Ansible."
+  },
+  {
+    "instruction": "Explain what is s3?",
+    "input": "",
+    "output": "S3 is an object storage service for storing and retrieving data."
+  },
+  {
+    "instruction": "What is load balancing?",
+    "input": "",
+    "output": "Load balancing distributes incoming traffic across multiple servers to improve performance and reliability."
+  },
+  {
+    "instruction": "What is HTTPS?",
+    "input": "",
+    "output": "HTTPS is a secure version of HTTP using encryption."
+  },
+  {
+    "instruction": "Explain what is docker?",
+    "input": "",
+    "output": "Docker is a platform that allows developers to package applications and their dependencies into containers, ensuring consistent execution across environments."
+  },
+  {
+    "instruction": "What is structured logging?",
+    "input": "",
+    "output": "Structured logging records logs in a consistent format like JSON for easier analysis."
+  },
+  {
+    "instruction": "What is merging in Git?",
+    "input": "",
+    "output": "Merging combines changes from different branches into a single branch."
+  },
+  {
+    "instruction": "Explain what is ci/cd?",
+    "input": "",
+    "output": "CI/CD stands for Continuous Integration and Continuous Deployment. It automates the process of integrating code changes, testing them, and deploying to production, improving speed and reliability."
+  },
+  {
+    "instruction": "What is rollback?",
+    "input": "",
+    "output": "Rollback reverts a system to a previous stable version."
+  },
+  {
+    "instruction": "What is AWS?",
+    "input": "",
+    "output": "AWS is a cloud computing platform offering scalable infrastructure services."
+  },
+  {
+    "instruction": "Why Ansible is agentless?",
+    "input": "",
+    "output": "Ansible uses SSH for communication, so it does not require agents installed on target systems."
+  },
+  {
+    "instruction": "Explain what is terraform?",
+    "input": "",
+    "output": "Terraform is an Infrastructure as Code tool used to define and provision cloud resources using declarative configuration."
+  },
+  {
+    "instruction": "Explain what is structured logging?",
+    "input": "",
+    "output": "Structured logging records logs in a consistent format like JSON for easier analysis."
+  },
+  {
+    "instruction": "Difference between CI and CD?",
+    "input": "",
+    "output": "CI focuses on integrating and testing code frequently, while CD focuses on deploying code automatically to production or staging environments."
+  },
+  {
+    "instruction": "What is log rotation?",
+    "input": "",
+    "output": "Log rotation manages log file size by archiving and deleting old logs."
+  },
+  {
+    "instruction": "Explain what is log rotation?",
+    "input": "",
+    "output": "Log rotation manages log file size by archiving and deleting old logs."
+  },
+  {
+    "instruction": "Explain what is a docker container?",
+    "input": "",
+    "output": "A Docker container is a running instance of a Docker image that executes applications in an isolated environment."
+  },
+  {
+    "instruction": "What is fault tolerance?",
+    "input": "",
+    "output": "Fault tolerance allows systems to continue operating despite failures."
+  },
+  {
+    "instruction": "Benefits of GitOps?",
+    "input": "",
+    "output": "GitOps improves automation, traceability, and consistency in deployments."
+  },
+  {
+    "instruction": "Explain benefits of gitops?",
+    "input": "",
+    "output": "GitOps improves automation, traceability, and consistency in deployments."
+  },
+  {
+    "instruction": "What is a pipeline?",
+    "input": "",
+    "output": "A pipeline is an automated workflow that builds, tests, and deploys applications."
+  },
+  {
+    "instruction": "What is IP address?",
+    "input": "",
+    "output": "An IP address uniquely identifies a device on a network."
+  },
+  {
+    "instruction": "Explain what is a playbook in ansible?",
+    "input": "",
+    "output": "A playbook is a YAML file that defines tasks and automation workflows in Ansible."
+  },
+  {
+    "instruction": "Explain what is logging?",
+    "input": "",
+    "output": "Logging is the process of recording application and system events for debugging and analysis."
+  },
+  {
+    "instruction": "What is a Docker image?",
+    "input": "",
+    "output": "A Docker image is a read-only template containing application code, libraries, and dependencies used to create containers."
+  },
+  {
+    "instruction": "Explain what is scaling?",
+    "input": "",
+    "output": "Scaling adjusts system resources based on workload demand."
+  },
+  {
+    "instruction": "What is monitoring?",
+    "input": "",
+    "output": "Monitoring involves collecting and analyzing system metrics to ensure performance and availability."
+  },
+  {
+    "instruction": "What is alerting?",
+    "input": "",
+    "output": "Alerting sends notifications when predefined conditions or thresholds are breached."
+  },
+  {
+    "instruction": "Explain why centralized logging?",
+    "input": "",
+    "output": "It simplifies log analysis and troubleshooting across distributed systems."
+  },
+  {
+    "instruction": "Explain explain continuous deployment.",
+    "input": "",
+    "output": "Continuous Deployment automatically releases validated code changes to production without manual intervention, ensuring faster delivery cycles."
+  },
+  {
+    "instruction": "What is Ansible?",
+    "input": "",
+    "output": "Ansible is an automation tool used for configuration management, application deployment, and task automation."
+  },
+  {
+    "instruction": "What is TCP/IP?",
+    "input": "",
+    "output": "TCP/IP is a set of communication protocols used for networking."
+  },
+  {
+    "instruction": "What is Grafana?",
+    "input": "",
+    "output": "Grafana is a visualization tool used to create dashboards for monitoring data."
+  },
+  {
+    "instruction": "What is VPC?",
+    "input": "",
+    "output": "VPC is a logically isolated network in AWS."
+  },
+  {
+    "instruction": "What is Jenkins?",
+    "input": "",
+    "output": "Jenkins is an automation server used to build CI/CD pipelines."
+  },
+  {
+    "instruction": "What is EC2?",
+    "input": "",
+    "output": "EC2 provides virtual servers for running applications in the cloud."
+  },
+  {
+    "instruction": "What is Infrastructure as Code?",
+    "input": "",
+    "output": "Infrastructure as Code allows provisioning and managing infrastructure using configuration files instead of manual processes."
+  },
+  {
+    "instruction": "Explain what is a pod in kubernetes?",
+    "input": "",
+    "output": "A pod is the smallest deployable unit in Kubernetes that can contain one or more containers sharing network and storage."
+  },
+  {
+    "instruction": "Benefits of Infrastructure as Code?",
+    "input": "",
+    "output": "It provides consistency, repeatability, version control, and faster infrastructure provisioning."
+  },
+  {
+    "instruction": "What is deployment?",
+    "input": "",
+    "output": "Deployment is the process of releasing an application to a production environment."
+  },
+  {
+    "instruction": "What is AWS?",
+    "input": "",
+    "output": "AWS is a cloud computing platform offering scalable infrastructure services."
+  },
+  {
+    "instruction": "What is IAM?",
+    "input": "",
+    "output": "IAM manages user access and permissions in AWS."
+  },
+  {
+    "instruction": "Terraform vs Ansible?",
+    "input": "",
+    "output": "Terraform is used for infrastructure provisioning, while Ansible is used for configuration management."
+  },
+  {
+    "instruction": "Explain difference between ci and cd?",
+    "input": "",
+    "output": "CI focuses on integrating and testing code frequently, while CD focuses on deploying code automatically to production or staging environments."
+  },
+  {
+    "instruction": "Terraform vs Ansible?",
+    "input": "",
+    "output": "Terraform is used for infrastructure provisioning, while Ansible is used for configuration management."
+  },
+  {
+    "instruction": "What is a node in Kubernetes?",
+    "input": "",
+    "output": "A node is a worker machine that runs pods and provides compute resources within a Kubernetes cluster."
+  },
+  {
+    "instruction": "What is logging?",
+    "input": "",
+    "output": "Logging is the process of recording application and system events for debugging and analysis."
+  },
+  {
+    "instruction": "Vertical vs horizontal scaling?",
+    "input": "",
+    "output": "Vertical scaling increases resources of a single machine, while horizontal scaling adds more machines."
+  },
+  {
+    "instruction": "What is a Docker container?",
+    "input": "",
+    "output": "A Docker container is a running instance of a Docker image that executes applications in an isolated environment."
+  },
+  {
+    "instruction": "Explain why monitoring is important?",
+    "input": "",
+    "output": "Monitoring helps detect system issues early and ensures uptime."
+  },
+  {
+    "instruction": "What is high availability?",
+    "input": "",
+    "output": "High availability ensures minimal downtime by using redundant systems."
+  },
+  {
+    "instruction": "Explain what is nginx?",
+    "input": "",
+    "output": "Nginx is a web server and reverse proxy used for load balancing and serving web content."
+  },
+  {
+    "instruction": "What is GitOps?",
+    "input": "",
+    "output": "GitOps is a practice where Git repositories are used as the source of truth for infrastructure and application deployments."
+  },
+  {
+    "instruction": "What is Kubernetes?",
+    "input": "",
+    "output": "Kubernetes is an open-source system used to automate deployment, scaling, and management of containerized applications."
+  },
+  {
+    "instruction": "Explain types of load balancing?",
+    "input": "",
+    "output": "Common types include round-robin, least connections, and IP hash."
+  },
+  {
+    "instruction": "What is Nginx?",
+    "input": "",
+    "output": "Nginx is a web server and reverse proxy used for load balancing and serving web content."
+  },
+  {
+    "instruction": "What is Docker?",
+    "input": "",
+    "output": "Docker is a platform that allows developers to package applications and their dependencies into containers, ensuring consistent execution across environments."
+  },
+  {
+    "instruction": "What is branching in Git?",
+    "input": "",
+    "output": "Branching allows developers to work on features independently without affecting the main codebase."
+  },
+  {
+    "instruction": "What is S3?",
+    "input": "",
+    "output": "S3 is an object storage service for storing and retrieving data."
+  },
+  {
+    "instruction": "Explain what is load balancing?",
+    "input": "",
+    "output": "Load balancing distributes incoming traffic across multiple servers to improve performance and reliability."
+  },
+  {
+    "instruction": "Explain what is ansible?",
+    "input": "",
+    "output": "Ansible is an automation tool used for configuration management, application deployment, and task automation."
+  },
+  {
+    "instruction": "What is Infrastructure as Code?",
+    "input": "",
+    "output": "Infrastructure as Code allows provisioning and managing infrastructure using configuration files instead of manual processes."
+  },
+  {
+    "instruction": "What is ELK stack?",
+    "input": "",
+    "output": "ELK stack consists of Elasticsearch, Logstash, and Kibana used for centralized logging."
+  },
+  {
+    "instruction": "What is high availability?",
+    "input": "",
+    "output": "High availability ensures minimal downtime by using redundant systems."
+  },
+  {
+    "instruction": "Explain what is high availability?",
+    "input": "",
+    "output": "High availability ensures minimal downtime by using redundant systems."
+  },
+  {
+    "instruction": "Difference between CI and CD?",
+    "input": "",
+    "output": "CI focuses on integrating and testing code frequently, while CD focuses on deploying code automatically to production or staging environments."
+  },
+  {
+    "instruction": "What is ELK stack?",
+    "input": "",
+    "output": "ELK stack consists of Elasticsearch, Logstash, and Kibana used for centralized logging."
+  },
+  {
+    "instruction": "What is Terraform?",
+    "input": "",
+    "output": "Terraform is an Infrastructure as Code tool used to define and provision cloud resources using declarative configuration."
+  },
+  {
+    "instruction": "What is Nginx?",
+    "input": "",
+    "output": "Nginx is a web server and reverse proxy used for load balancing and serving web content."
+  },
+  {
+    "instruction": "Explain why use docker in devops?",
+    "input": "",
+    "output": "Docker provides environment consistency, faster deployments, scalability, and reduces dependency-related issues."
+  },
+  {
+    "instruction": "What is Ansible?",
+    "input": "",
+    "output": "Ansible is an automation tool used for configuration management, application deployment, and task automation."
+  },
+  {
+    "instruction": "What is a Docker image?",
+    "input": "",
+    "output": "A Docker image is a read-only template containing application code, libraries, and dependencies used to create containers."
+  },
+  {
+    "instruction": "Explain why ansible is agentless?",
+    "input": "",
+    "output": "Ansible uses SSH for communication, so it does not require agents installed on target systems."
+  },
+  {
+    "instruction": "Benefits of GitOps?",
+    "input": "",
+    "output": "GitOps improves automation, traceability, and consistency in deployments."
+  },
+  {
+    "instruction": "What is a pod in Kubernetes?",
+    "input": "",
+    "output": "A pod is the smallest deployable unit in Kubernetes that can contain one or more containers sharing network and storage."
+  },
+  {
+    "instruction": "Explain what is fault tolerance?",
+    "input": "",
+    "output": "Fault tolerance allows systems to continue operating despite failures."
+  },
+  {
+    "instruction": "What is branching in Git?",
+    "input": "",
+    "output": "Branching allows developers to work on features independently without affecting the main codebase."
+  },
+  {
+    "instruction": "Why centralized logging?",
+    "input": "",
+    "output": "It simplifies log analysis and troubleshooting across distributed systems."
+  }
+]

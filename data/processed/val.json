@@ -1,0 +1,202 @@
+[
+  {
+    "instruction": "What is zero downtime deployment?",
+    "input": "",
+    "output": "Zero downtime deployment ensures updates occur without interrupting service."
+  },
+  {
+    "instruction": "What is Terraform state file?",
+    "input": "",
+    "output": "The state file stores the current configuration of infrastructure and helps Terraform track changes."
+  },
+  {
+    "instruction": "Explain what is elk stack?",
+    "input": "",
+    "output": "ELK stack consists of Elasticsearch, Logstash, and Kibana used for centralized logging."
+  },
+  {
+    "instruction": "Explain what is github?",
+    "input": "",
+    "output": "GitHub is a platform that hosts Git repositories and enables collaboration among developers."
+  },
+  {
+    "instruction": "What is HTTP?",
+    "input": "",
+    "output": "HTTP is a protocol used for communication between clients and servers."
+  },
+  {
+    "instruction": "What is reverse proxy?",
+    "input": "",
+    "output": "A reverse proxy forwards client requests to backend servers and manages responses."
+  },
+  {
+    "instruction": "Explain what is iam?",
+    "input": "",
+    "output": "IAM manages user access and permissions in AWS."
+  },
+  {
+    "instruction": "What is Terraform state file?",
+    "input": "",
+    "output": "The state file stores the current configuration of infrastructure and helps Terraform track changes."
+  },
+  {
+    "instruction": "What is structured logging?",
+    "input": "",
+    "output": "Structured logging records logs in a consistent format like JSON for easier analysis."
+  },
+  {
+    "instruction": "Explain what is aws?",
+    "input": "",
+    "output": "AWS is a cloud computing platform offering scalable infrastructure services."
+  },
+  {
+    "instruction": "What is a node in Kubernetes?",
+    "input": "",
+    "output": "A node is a worker machine that runs pods and provides compute resources within a Kubernetes cluster."
+  },
+  {
+    "instruction": "Explain what is a pipeline?",
+    "input": "",
+    "output": "A pipeline is an automated workflow that builds, tests, and deploys applications."
+  },
+  {
+    "instruction": "What is authentication?",
+    "input": "",
+    "output": "Authentication verifies the identity of a user or system."
+  },
+  {
+    "instruction": "Why Kubernetes is used?",
+    "input": "",
+    "output": "Kubernetes is used to automate container management, ensure scalability, and maintain high availability."
+  },
+  {
+    "instruction": "Explain Continuous Integration.",
+    "input": "",
+    "output": "Continuous Integration is a practice where developers frequently merge code changes into a shared repository, triggering automated builds and tests to detect issues early."
+  },
+  {
+    "instruction": "What is merging in Git?",
+    "input": "",
+    "output": "Merging combines changes from different branches into a single branch."
+  },
+  {
+    "instruction": "What is Jenkins?",
+    "input": "",
+    "output": "Jenkins is an automation server used to build CI/CD pipelines."
+  },
+  {
+    "instruction": "What is a Kubernetes cluster?",
+    "input": "",
+    "output": "A cluster is a set of nodes managed by Kubernetes to run containerized workloads efficiently."
+  },
+  {
+    "instruction": "Explain what is kubernetes?",
+    "input": "",
+    "output": "Kubernetes is an open-source system used to automate deployment, scaling, and management of containerized applications."
+  },
+  {
+    "instruction": "Explain what is vpc?",
+    "input": "",
+    "output": "VPC is a logically isolated network in AWS."
+  },
+  {
+    "instruction": "What is a daemon?",
+    "input": "",
+    "output": "A daemon is a background process that runs continuously."
+  },
+  {
+    "instruction": "Explain what is a node in kubernetes?",
+    "input": "",
+    "output": "A node is a worker machine that runs pods and provides compute resources within a Kubernetes cluster."
+  },
+  {
+    "instruction": "Docker vs Virtual Machines?",
+    "input": "",
+    "output": "Containers share the host OS kernel and are lightweight, whereas virtual machines run full OS instances and consume more resources."
+  },
+  {
+    "instruction": "What is a Kubernetes cluster?",
+    "input": "",
+    "output": "A cluster is a set of nodes managed by Kubernetes to run containerized workloads efficiently."
+  },
+  {
+    "instruction": "Explain what is branching in git?",
+    "input": "",
+    "output": "Branching allows developers to work on features independently without affecting the main codebase."
+  },
+  {
+    "instruction": "What is idempotency?",
+    "input": "",
+    "output": "Idempotency ensures that repeated execution of tasks produces the same result without unintended changes."
+  },
+  {
+    "instruction": "Explain benefits of infrastructure as code?",
+    "input": "",
+    "output": "It provides consistency, repeatability, version control, and faster infrastructure provisioning."
+  },
+  {
+    "instruction": "Benefits of Infrastructure as Code?",
+    "input": "",
+    "output": "It provides consistency, repeatability, version control, and faster infrastructure provisioning."
+  },
+  {
+    "instruction": "What is a playbook in Ansible?",
+    "input": "",
+    "output": "A playbook is a YAML file that defines tasks and automation workflows in Ansible."
+  },
+  {
+    "instruction": "Explain what is merging in git?",
+    "input": "",
+    "output": "Merging combines changes from different branches into a single branch."
+  },
+  {
+    "instruction": "What is rebase in Git?",
+    "input": "",
+    "output": "Rebase moves or reapplies commits onto another base branch to maintain a linear history."
+  },
+  {
+    "instruction": "What is DevSecOps?",
+    "input": "",
+    "output": "DevSecOps integrates security practices into DevOps workflows."
+  },
+  {
+    "instruction": "Why Ansible is agentless?",
+    "input": "",
+    "output": "Ansible uses SSH for communication, so it does not require agents installed on target systems."
+  },
+  {
+    "instruction": "Explain explain continuous integration.",
+    "input": "",
+    "output": "Continuous Integration is a practice where developers frequently merge code changes into a shared repository, triggering automated builds and tests to detect issues early."
+  },
+  {
+    "instruction": "What is load balancing?",
+    "input": "",
+    "output": "Load balancing distributes incoming traffic across multiple servers to improve performance and reliability."
+  },
+  {
+    "instruction": "What is Terraform?",
+    "input": "",
+    "output": "Terraform is an Infrastructure as Code tool used to define and provision cloud resources using declarative configuration."
+  },
+  {
+    "instruction": "Explain what is terraform state file?",
+    "input": "",
+    "output": "The state file stores the current configuration of infrastructure and helps Terraform track changes."
+  },
+  {
+    "instruction": "Explain what is alerting?",
+    "input": "",
+    "output": "Alerting sends notifications when predefined conditions or thresholds are breached."
+  },
+  {
+    "instruction": "Explain what is jenkins pipeline?",
+    "input": "",
+    "output": "A Jenkins pipeline defines the steps involved in building, testing, and deploying applications."
+  },
+  {
+    "instruction": "What is log rotation?",
+    "input": "",
+    "output": "Log rotation manages log file size by archiving and deleting old logs."
+  }
+]

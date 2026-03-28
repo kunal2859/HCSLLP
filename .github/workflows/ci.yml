@@ -1,0 +1,229 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  # ─────────────────────────────────────────
+  # Stage 1: Code Quality
+  # ─────────────────────────────────────────
+  code-quality:
+    name: Code Quality (Lint + Type Check)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install lint dependencies
+        run: |
+          pip install ruff mypy
+
+      - name: Ruff Lint
+        run: ruff check . --output-format=github
+
+      - name: Mypy Type Check
+        run: mypy . --ignore-missing-imports --exclude venv
+
+  # ─────────────────────────────────────────
+  # Stage 2: Model Evaluation
+  # ─────────────────────────────────────────
+  model-eval:
+    name: Model Evaluation (ROUGE Gate)
+    runs-on: self-hosted
+    needs: code-quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install rouge-score
+
+      - name: Download fine-tuned model artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-model
+          path: models/lora_adapter/
+        continue-on-error: true   # Skip if no artifact (first run)
+
+      - name: Run evaluation + ROUGE assertion
+        run: python evaluation/evaluate.py --ci
+
+      - name: Upload evaluation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-results-${{ github.sha }}
+          path: evaluation/results.json
+          retention-days: 30
+
+  # ─────────────────────────────────────────
+  # Stage 3: Automated Tests
+  # ─────────────────────────────────────────
+  tests:
+    name: Automated Tests (pytest)
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        run: pytest tests/ -v --tb=short
+
+  # ─────────────────────────────────────────
+  # Stage 4: Docker Build & Push
+  # ─────────────────────────────────────────
+  docker-build:
+    name: Docker Build & Push
+    runs-on: ubuntu-latest
+    needs: [model-eval, tests]
+    permissions:
+      packages: write
+      contents: read
+    outputs:
+      inference_image: ${{ steps.meta-inference.outputs.tags }}
+      mcp_image: ${{ steps.meta-mcp.outputs.tags }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # --- Inference Server Image ---
+      - name: Extract metadata (inference)
+        id: meta-inference
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-inference
+          tags: |
+            type=sha,prefix=,format=short
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build & push inference image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.inference
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta-inference.outputs.tags }}
+          labels: ${{ steps.meta-inference.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # --- MCP Server Image ---
+      - name: Extract metadata (mcp)
+        id: meta-mcp
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-mcp
+          tags: |
+            type=sha,prefix=,format=short
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build & push MCP image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.mcp
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta-mcp.outputs.tags }}
+          labels: ${{ steps.meta-mcp.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ─────────────────────────────────────────
+  # Stage 5: Deploy (main branch only)
+  # ─────────────────────────────────────────
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: docker-build
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          COMMIT_SHA: ${{ github.sha }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          IMAGE_OWNER: ${{ env.IMAGE_OWNER }}
+          REGISTRY: ${{ env.REGISTRY }}
+        run: |
+          ssh -i ~/.ssh/deploy_key $DEPLOY_USER@$DEPLOY_HOST << EOF
+            # Save the old image tags for rollback
+            OLD_INFERENCE=\$(docker ps --filter "name=devops-inference" --format "{{.Image}}" | head -1)
+            OLD_MCP=\$(docker ps --filter "name=devops-mcp" --format "{{.Image}}" | head -1)
+
+            # Authenticate to GHCR
+            echo "${GHCR_TOKEN}" | docker login $REGISTRY -u $IMAGE_OWNER --password-stdin
+
+            # Pull new images
+            docker pull ${REGISTRY}/${IMAGE_OWNER}/devops-inference:${COMMIT_SHA:0:7}
+            docker pull ${REGISTRY}/${IMAGE_OWNER}/devops-mcp:${COMMIT_SHA:0:7}
+
+            # Stop and restart with new images
+            cd ~/devops-assistant
+            COMMIT_SHA=${COMMIT_SHA:0:7} IMAGE_OWNER=${IMAGE_OWNER} REGISTRY=${REGISTRY} \
+              docker compose up -d --no-deps inference mcp
+
+            # Health check (retry for 30s)
+            for i in \$(seq 1 6); do
+              if curl -sf http://localhost:8000/health && curl -sf http://localhost:8001/health; then
+                echo "✅ Health check passed!"
+                exit 0
+              fi
+              echo "Attempt \$i failed, retrying in 5s..."
+              sleep 5
+            done
+
+            # ROLLBACK if health check failed
+            echo "⚠️ Health check failed! Rolling back..."
+            docker stop devops-inference devops-mcp 2>/dev/null || true
+            [ -n "\$OLD_INFERENCE" ] && docker run -d --name devops-inference \$OLD_INFERENCE
+            [ -n "\$OLD_MCP" ] && docker run -d --name devops-mcp \$OLD_MCP
+            echo "Rollback complete."
+            exit 1
+          EOF

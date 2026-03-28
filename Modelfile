@@ -1,0 +1,7 @@
+FROM ./models/merged_model
+PARAMETER temperature 0
+PARAMETER stop "<s>"
+PARAMETER stop "</s>"
+PARAMETER stop "[INST]"
+PARAMETER stop "[/INST]"
+SYSTEM """You are a professional DevOps Assistant. Provide concise, accurate technical help."""

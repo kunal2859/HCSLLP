@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Models & Data
+models/lora_adapter/checkpoint-*
+models/merged_model/
+chroma_db/
+logs/*.json
+
+# Runner
+actions-runner/
+_work/
