@@ -90,17 +90,9 @@ class ReActAgent:
         obs_text = "\n".join([f"- {o['tool']}: {o['result']}" for o in observations])
         full_context = "\n".join([f"User: {t['user']}\nAssistant: {t['assistant']}" for t in self.memory[-3:]])
 
-        prompt = f"""You are a DevOps expert. Answer the user's question using only the context below.
-Be concise (2-3 sentences max). Do NOT mention which tools were used.
-
-Tool Results:
-{obs_text}
-
-{f"Previous Conversation:{chr(10)}{full_context}" if full_context else ""}
-
+        prompt = f"""Context from tools: {obs_text}
 User Question: {query}
-
-Answer:"""
+Answer concisely:"""
 
         self.last_input_tokens = len(tokenizer.encode(prompt))
 

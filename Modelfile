@@ -1,7 +1,12 @@
-FROM ./models/merged_model
+FROM ./models/merged_model/model-q4_k_m.gguf
+TEMPLATE """<|user|>
+{{ .Prompt }}<|end|>
+<|assistant|>
+"""
+PARAMETER stop "<|end|>"
+PARAMETER stop "<|endoftext|>"
+PARAMETER stop "<|user|>"
+PARAMETER stop "<|assistant|>"
+PARAMETER num_ctx 4096
 PARAMETER temperature 0
-PARAMETER stop "<s>"
-PARAMETER stop "</s>"
-PARAMETER stop "[INST]"
-PARAMETER stop "[/INST]"
-SYSTEM """You are a professional DevOps Assistant. Provide concise, accurate technical help."""
+SYSTEM """You are a professional DevOps Assistant. Answer concisely using provided context."""

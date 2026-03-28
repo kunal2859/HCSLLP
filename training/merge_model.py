@@ -12,11 +12,11 @@ def merge_and_save():
     save_path = "models/merged_model"
 
     print("Loading base model...")
+    print("Loading base model...")
     base_model = AutoModelForCausalLM.from_pretrained(
         base_model_name,
         dtype=torch.float16,
         device_map="cpu",
-        trust_remote_code=True,
         attn_implementation="eager"
     )
     
