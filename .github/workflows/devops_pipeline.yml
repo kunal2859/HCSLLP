@@ -96,10 +96,10 @@ jobs:
         run: python3 evaluation/evaluate.py --ci
 
   # ─────────────────────────────────────────
-  # Stage 4: Docker & Deploy (On Cloud)
+  # Stage 4: Docker Build & Push (Cloud)
   # ─────────────────────────────────────────
-  build-and-deploy:
-    name: Build & Deploy
+  docker-build:
+    name: Build & Push Image
     runs-on: ubuntu-latest
     needs: evaluation
     if: github.ref == 'refs/heads/main'
@@ -121,19 +121,36 @@ jobs:
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-mcp:latest -f docker/Dockerfile.mcp .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/devops-mcp:latest
 
+  # ─────────────────────────────────────────
+  # Stage 5: Deploy via SSH (Optional - only if DEPLOY_HOST is set)
+  # ─────────────────────────────────────────
+  deploy:
+    name: Deploy to Server (Optional)
+    runs-on: ubuntu-latest
+    needs: docker-build
+    if: github.ref == 'refs/heads/main' && secrets.DEPLOY_HOST != ''
+    steps:
+      - uses: actions/checkout@v4
+
       - name: Deploy via SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         run: |
+          if [ -z "$DEPLOY_HOST" ]; then
+            echo "⚠️  DEPLOY_HOST not set. Skipping deployment."
+            exit 0
+          fi
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
-          # Ensure directory exists
-          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p ~/devops-assistant"
-          # Copy docker-compose
-          scp -i ~/.ssh/deploy_key docker-compose.yml ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:~/devops-assistant/
-          # Deploy
-          ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "
-            echo '${{ secrets.GHCR_TOKEN }}' | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin && \
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p ~/devops-assistant"
+          scp -i ~/.ssh/deploy_key docker-compose.yml "$DEPLOY_USER@$DEPLOY_HOST:~/devops-assistant/"
+          ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "
+            echo '$GHCR_TOKEN' | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin && \
             cd ~/devops-assistant && \
             IMAGE_OWNER=${{ env.IMAGE_OWNER }} REGISTRY=${{ env.REGISTRY }} docker compose pull && \
             IMAGE_OWNER=${{ env.IMAGE_OWNER }} REGISTRY=${{ env.REGISTRY }} docker compose up -d
