@@ -89,9 +89,9 @@ class ReActAgent:
         obs_text = "\n".join([f"- {o['tool']}: {o['result']}" for o in observations])
         full_context = "\n".join([f"User: {t['user']}\nAssistant: {t['assistant']}" for t in self.memory[-3:]])
 
-        prompt = f"""Context from tools: {obs_text}
-{f"Previous Conversation:{chr(10)}{full_context}" if full_context else ""}
-User Question: {query}
+        prompt = f"""Context: {obs_text}
+{f"History:{chr(10)}{full_context}" if full_context else ""}
+Question: {query}
 Answer concisely:"""
 
         self.last_input_tokens = len(tokenizer.encode(prompt))

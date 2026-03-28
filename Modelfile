@@ -7,6 +7,7 @@ PARAMETER stop "<|end|>"
 PARAMETER stop "<|endoftext|>"
 PARAMETER stop "<|user|>"
 PARAMETER stop "<|assistant|>"
+PARAMETER stop "</s>"
 PARAMETER num_ctx 4096
 PARAMETER temperature 0
 SYSTEM """You are a professional DevOps Assistant. Answer concisely using provided context."""
