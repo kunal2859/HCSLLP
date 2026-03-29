@@ -67,11 +67,9 @@ class ReActAgent:
                     perc = match.group(1) if "%" in pat else "50"
                     plan.append({"tool": "run_python", "input": f"print({val} * {int(perc)/100})"})
                 else:
-                    val1, _, val2 = match.groups()
-                    if val1.isdigit() and val2.isdigit():
-                        plan.append({"tool": "run_python", "input": f"print({val1} * {val2})"})
-                    else:
-                        plan.append({"tool": "run_python", "input": "print(1000 * 5)"})
+                    v1, op, v2 = match.groups()
+                    op = "*" if op.lower() in ["times", "x"] else op
+                    plan.append({"tool": "run_python", "input": f"print({v1} {op} {v2})"})
                 break
 
         return plan
@@ -118,7 +116,6 @@ Answer all parts of the question concisely using the provided context:"""
             return f"Error in synthesis: {str(e)}"
 
     def solve(self, query: str) -> str:
-        start_time = time.time()
         start_time = time.time()
         print(f"\nQuery: {query}")
 

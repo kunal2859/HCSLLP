@@ -1,3 +1,4 @@
+import sys
 import subprocess
 import time
 
@@ -6,7 +7,7 @@ def start_services():
     
     print("Starting Tool API (Port 8000)...")
     tool_api = subprocess.Popen(
-        ["python3", "-m", "uvicorn", "mcp_server.api:app", "--port", "8000"],
+        [sys.executable, "-m", "uvicorn", "mcp_server.api:app", "--port", "8000"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL
     )
@@ -19,7 +20,7 @@ def start_services():
         try:
             resp = requests.get("http://127.0.0.1:8000/health", timeout=1)
             if resp.status_code == 200:
-                print("ool API is ready!")
+                print("Tool API is ready!")
                 break
         except Exception:
             pass
