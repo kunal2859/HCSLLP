@@ -1023,5 +1023,15 @@
         "instruction": "What is the difference between 'run' and 'uses' in GitHub Actions?",
         "input": "",
         "output": "'run' executes a shell command, while 'uses' executes a pre-built action from the GitHub marketplace or a local directory."
+    },
+    {
+        "instruction": "What is GitOps?",
+        "input": "",
+        "output": "GitOps is a practice where Git is used as the single source of truth for infrastructure and application configurations, using automated sync processes to apply changes."
+    },
+    {
+        "instruction": "Explain the role of a Sidecar in Kubernetes.",
+        "input": "",
+        "output": "A Sidecar is a secondary container that runs alongside the main container in a pod, providing auxiliary features like logging, monitoring, or network proxying."
     }
 ]
